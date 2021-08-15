@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Map>
+  <Route>
+    <Point Nr="1" pos="0.0 1.5" neighbor = "3" line = "0" type="0"/>
+    <Point Nr="2" pos="-3.53 -6.64" neighbor = "4" line = "0" type="0"/>
+    <Point Nr="3" pos="4.0 1.5" neighbor = "1 5" line = "0" type="1"/>
+    <Point Nr="4" pos="-1.27 -6.715" neighbor = "2 6" line = "0" type="1"/>
+    <Point Nr="5" pos="7.0 1.5" neighbor = "3" line = "88" type="2"/>
+    <Point Nr="6" pos="0.99 -6.79" neighbor = "4" line = "88" type="2"/>
+
+
+    <Point Nr="21" pos="7.33 -1.57" neighbor = "0" line = "1" type="3"/>
+    <Point Nr="22" pos="17.0 6.0" neighbor = "0" line = "1" type="3"/>
+
+    <Point Nr="31" pos="31.0 6.0" neighbor = "0" line = "1" type="3"/>
+    <Point Nr="32" pos="33.0 6.0" neighbor = "0" line = "1" type="3"/>
+
+    <Point Nr="41" pos="40.0 16.0" neighbor = "0" line = "1" type="3"/>
+    <Point Nr="42" pos="42.0 16.0" neighbor = "0" line = "1" type="3"/>
+
+    <Point Nr="51" pos="31.0 60.0" neighbor = "0" line = "3" type="3"/>
+    <Point Nr="52" pos="33.0 60.0" neighbor = "0" line = "3" type="3"/>
+
+    <Point Nr="61" pos="8.0 60.0" neighbor = "0" line = "3" type="3"/>
+    <Point Nr="62" pos="10.0 60.0" neighbor = "0" line = "3" type="3"/>
+
+    <Point Nr="71" pos="21.0 47.0" neighbor = "0" line = "3" type="3"/>
+    <Point Nr="72" pos="26.0 47.0" neighbor = "0" line = "3" type="3"/>
+
+    <Point Nr="81" pos="21.0 20.0" neighbor = "0" line = "1" type="3"/>
+    <Point Nr="82" pos="26.0 20.0" neighbor = "0" line = "1" type="3"/>
+  </Route>
+  
+  <Path>
+    <Line Nr="1" l1_pos_start="7.0 13.0" l1_pos_end="42.0 13.0" l2_pos_start="1.98 1.08" l2_pos_end="41.91 -0.97" />
+    <Line Nr="2" l1_pos_start="30.0 13.0" l1_pos_end="30.0 52.0" l2_pos_start="38.0 10.0" l2_pos_end="38.0 48.0" />
+    <Line Nr="3" l1_pos_start="7.0 52.0" l1_pos_end="42.0 52.0" l2_pos_start="7.0 48.0" l2_pos_end="42.0 48.0" />
+
+    <Line Nr="88"  l1_pos_start="7.0 1.5" l1_pos_end="7.0 13.0" l2_pos_start="9.0 0.0" l2_pos_end="9.0 10.0"/>
+  </Path>
+    
+</Map>

@@ -1,0 +1,10 @@
+D:\forklift\forklift_rcs\forklift_rcs\obj\Debug\forklift_rcs.csprojAssemblyReference.cache
+D:\forklift\forklift_rcs\forklift_rcs\obj\Debug\forklift_rcs.csproj.CoreCompileInputs.cache
+D:\forklift\forklift_rcs\forklift_rcs\bin\Debug\forklift_rcs.exe.config
+D:\forklift\forklift_rcs\forklift_rcs\bin\Debug\forklift_rcs.exe
+D:\forklift\forklift_rcs\forklift_rcs\bin\Debug\forklift_rcs.pdb
+D:\forklift\forklift_rcs\forklift_rcs\obj\Debug\forklift_rcs.exe
+D:\forklift\forklift_rcs\forklift_rcs\obj\Debug\forklift_rcs.pdb
+D:\forklift\forklift_rcs\forklift_rcs\bin\Debug\Newtonsoft.Json.dll
+D:\forklift\forklift_rcs\forklift_rcs\bin\Debug\Newtonsoft.Json.xml
+D:\forklift\forklift_rcs\forklift_rcs\obj\Debug\forklift_rcs.csproj.CopyComplete

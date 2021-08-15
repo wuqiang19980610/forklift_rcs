@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<frame>
+  <sendframe>
+    <item name="frame_head" byte="1" type="byte" default = "252"/>
+    <item name="dlc" byte="1" type="byte" default = "13"/>
+    <item name="pc_address" byte="1" type="byte" default = "none"/>
+    <item name="agv_address" byte="1" type="byte" default = "none"/>
+    <item name="cmd" byte="1" type="byte" default = "none"/>
+    <item name="data" byte="8" type="byte" default = "none"/>
+    <item name="crc" byte="2" type="uint16" default = "none"/>
+    <item name="frame_end" byte="1" type="byte" default = "90"/>
+  </sendframe>
+
+  <receframe>
+    <item name="frame_head" byte="1" type="byte" default = "none"/>
+    <item name="dlc" byte="1" type="byte" default = "none"/>
+    <item name="pc_address" byte="1" type="byte" default = "none"/>
+    <item name="agv_address" byte="1" type="byte" default = "none"/>
+    <item name="cmd" byte="1" type="byte" default = "none"/>
+    <item name="agv_status" byte="1" type="byte" default = "none"/>
+    <item name="error_code" byte="2" type="uint16" default = "none"/>
+    <item name="bat" byte="1" type="byte" default = "none"/>
+    <item name="task_state" byte="1" type="byte" default = "none"/>
+    <item name="fork_level" byte="1" type="byte" default = "none"/>
+    <item name="agv_vel" byte="2" type="int16" default = "none"/>
+    <item name="agv_pos_x" byte="2" type="int16" default = "none"/>
+    <item name="agv_pos_y" byte="2" type="int16" default = "none"/>
+    <item name="agv_yaw" byte="2" type="int16" default = "none"/>
+    <item name="sensor_status" byte="1" type="byte" default = "none"/>
+    <item name="crc" byte="2" type="uint16" default = "none"/>
+    <item name="frame_end" byte="1" type="byte" default = "none"/>
+  </receframe>
+</frame>
