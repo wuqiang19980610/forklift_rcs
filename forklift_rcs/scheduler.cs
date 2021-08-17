@@ -106,7 +106,7 @@ namespace forklift_rcs
         public serialport port_obj; //串口通讯模块
         public scheduler()
         {
-            mission_manage.timestamp = 0;
+            mission_manage.timestamp = 0.0;
             mission_manage.cmd_type = 0;
             mission_manage.mission_state = 0;
 
@@ -129,6 +129,17 @@ namespace forklift_rcs
             port_obj.open_port(9600, "COM3");
 
         }
+
+        //计算时间戳
+        public double getTimeStamp()
+        {
+            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            Int64 tmp = Convert.ToInt64(ts.TotalMilliseconds);
+
+            return ((double)tmp * 0.001);
+        }
+
+
         //===========================================================================================
         public bool aktiv_forklift(UInt16 forklift_id)
         {
@@ -464,8 +475,8 @@ namespace forklift_rcs
                 {
                     generate_sendframe();
                     mission_manage.mission_state = 1;
-                    mission_manage.timestamp = (double)(DateTime.Now.Millisecond) * 0.001;
-                    if(port_obj.is_open==true)
+                    mission_manage.timestamp = getTimeStamp();
+                    if (port_obj.is_open==true)
                         port_obj.data_send();
                     else
                         mission_manage.mission_state = -1;
@@ -475,7 +486,7 @@ namespace forklift_rcs
                 //检测发送数据帧后回收有没有超时
                 if (mission_manage.mission_state == 1)
                 {
-                    double t = (double)(DateTime.Now.Millisecond) * 0.001;
+                    double t = getTimeStamp();
                     if (t - mission_manage.timestamp > 0.5)
                     {
                         mission_manage.timestamp = 0.0;

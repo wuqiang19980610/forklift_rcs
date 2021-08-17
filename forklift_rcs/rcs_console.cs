@@ -21,7 +21,7 @@ namespace forklift_rcs
             scheduler_obj = new scheduler();
             sock_obj = new socket_comm();
 
-            timestamp = (double)(DateTime.Now.Millisecond) * 0.001;
+            timestamp = scheduler_obj.getTimeStamp();
             ask_forklift_id = 2;
         }
 
@@ -137,13 +137,19 @@ namespace forklift_rcs
             }
             else //在没有收到来自上一层的指令发送要求时，自己发送询问叉车状态的报文。
             {
-                double act_time = (double)(DateTime.Now.Millisecond) * 0.001; //当前时间
+
+                double act_time = scheduler_obj.getTimeStamp(); //当前时间
+
                 if (act_time - timestamp > 0.4)//当前时间与上次隔了0.4秒则询问一次叉车状态
                 {
                     bool is_ok = scheduler_obj.getstatus_forklift(ask_forklift_id); //询问叉车状态
                     timestamp = act_time;
+
+                    if(is_ok) Console.WriteLine("ask status success");
+                    else Console.WriteLine("ask status failed");
+
                     //叉车ID号切换
-                    if(ask_forklift_id == 2) ask_forklift_id = 3;
+                    if (ask_forklift_id == 2) ask_forklift_id = 3;
                     else ask_forklift_id = 2;
                 }
             }
