@@ -158,6 +158,7 @@ namespace forklift_rcs
         public bool deaktiv_forklift(UInt16 forklift_id)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_DEAKTIV;
             mission_manage.req_id = forklift_id;
@@ -183,6 +184,7 @@ namespace forklift_rcs
         public bool reset_forklift(UInt16 forklift_id)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_RESET;
             mission_manage.req_id = forklift_id;
@@ -208,6 +210,7 @@ namespace forklift_rcs
         public bool charge_forklift(UInt16 forklift_id)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_CHARGE;
             mission_manage.req_id = forklift_id;
@@ -232,6 +235,7 @@ namespace forklift_rcs
         public bool end_charge_forklift(UInt16 forklift_id)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_CHARGE_OUT;
             mission_manage.req_id = forklift_id;
@@ -256,6 +260,7 @@ namespace forklift_rcs
         public bool setfork_forklift(UInt16 forklift_id, byte level)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_FORK;
             mission_manage.req_id = forklift_id;
@@ -282,6 +287,7 @@ namespace forklift_rcs
         public bool getstatus_forklift(UInt16 forklift_id)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_ASK;
             mission_manage.req_id = forklift_id;
@@ -307,6 +313,7 @@ namespace forklift_rcs
         public bool set_laserscan_forklift(UInt16 forklift_id, byte on)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             mission_manage.cmd_type = rc_controlword.RC_CMD_LS;
             mission_manage.req_id = forklift_id;
@@ -336,6 +343,7 @@ namespace forklift_rcs
         public bool set_drive_forklift(UInt16 forklift_id, Path_Type path)
         {
             if (mission_manage.mission_state != 0) return false;
+            if (port_obj.is_open == false) return false;
 
             //检查另一个叉车是否占用
             Forklift_Mean_Type tmp_another_forklift;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Timers;
 
 namespace forklift_rcs
 {
@@ -10,18 +11,25 @@ namespace forklift_rcs
     {
         scheduler scheduler_obj;
         socket_comm sock_obj;
+        double timestamp;
+
+        UInt16 ask_forklift_id;
 
 
         public rcs_console()
         {
             scheduler_obj = new scheduler();
             sock_obj = new socket_comm();
+
+            timestamp = (double)(DateTime.Now.Millisecond) * 0.001;
+            ask_forklift_id = 2;
         }
 
         public void loop()
         {
             UInt16 forklift_id;
-            if (sock_obj.comm_data.forklift_data_state == 1) {
+            if (sock_obj.comm_data.forklift_data_state == 1) //接收到来自socket的请求
+            {
                 forklift_id = Convert.ToUInt16(sock_obj.comm_data.rece_frame["agv_id"].ToString());
 
                 if (sock_obj.comm_data.rece_frame["cmd_type"].ToString() == "task_download")
@@ -73,39 +81,34 @@ namespace forklift_rcs
                 }
                 else if (sock_obj.comm_data.rece_frame["cmd_type"].ToString() == "agv_status")
                 {
-                    bool is_ok = scheduler_obj.getstatus_forklift(forklift_id);
-
-                    if (is_ok)
+                    if (forklift_id == 2)
                     {
-                        if (forklift_id == 2)
-                        {
-                            sock_obj.comm_data.send_frame_status["AgvID"] = "02";
-                            sock_obj.comm_data.send_frame_status["State"] = scheduler_obj.forklift1.forklift_data.status.ToString();
-                            sock_obj.comm_data.send_frame_status["SensorStatus"] = scheduler_obj.forklift1.forklift_data.sensor.ToString();
-                            sock_obj.comm_data.send_frame_status["Fault"] = scheduler_obj.forklift1.forklift_data.errorcode.ToString();
-                            sock_obj.comm_data.send_frame_status["Power"] = scheduler_obj.forklift1.forklift_data.bat.ToString();
-                            sock_obj.comm_data.send_frame_status["X"] = scheduler_obj.forklift1.forklift_data.px.ToString();
-                            sock_obj.comm_data.send_frame_status["Y"] = scheduler_obj.forklift1.forklift_data.py.ToString();
-                            sock_obj.comm_data.send_frame_status["Yaw"] = scheduler_obj.forklift1.forklift_data.yaw.ToString();
-                            sock_obj.comm_data.send_frame_status["TaskID"] = scheduler_obj.forklift1.forklift_data.task_id.ToString();
+                        sock_obj.comm_data.send_frame_status["AgvID"] = "02";
+                        sock_obj.comm_data.send_frame_status["State"] = scheduler_obj.forklift1.forklift_data.status.ToString();
+                        sock_obj.comm_data.send_frame_status["SensorStatus"] = scheduler_obj.forklift1.forklift_data.sensor.ToString();
+                        sock_obj.comm_data.send_frame_status["Fault"] = scheduler_obj.forklift1.forklift_data.errorcode.ToString();
+                        sock_obj.comm_data.send_frame_status["Power"] = scheduler_obj.forklift1.forklift_data.bat.ToString();
+                        sock_obj.comm_data.send_frame_status["X"] = scheduler_obj.forklift1.forklift_data.px.ToString();
+                        sock_obj.comm_data.send_frame_status["Y"] = scheduler_obj.forklift1.forklift_data.py.ToString();
+                        sock_obj.comm_data.send_frame_status["Yaw"] = scheduler_obj.forklift1.forklift_data.yaw.ToString();
+                        sock_obj.comm_data.send_frame_status["TaskID"] = scheduler_obj.forklift1.forklift_data.task_id.ToString();
 
-                        }
-                        else
-                        {
-                            sock_obj.comm_data.send_frame_status["AgvID"] = "03";
-                            sock_obj.comm_data.send_frame_status["State"] = scheduler_obj.forklift2.forklift_data.status.ToString();
-                            sock_obj.comm_data.send_frame_status["SensorStatus"] = scheduler_obj.forklift2.forklift_data.sensor.ToString();
-                            sock_obj.comm_data.send_frame_status["Fault"] = scheduler_obj.forklift2.forklift_data.errorcode.ToString();
-                            sock_obj.comm_data.send_frame_status["Power"] = scheduler_obj.forklift2.forklift_data.bat.ToString();
-                            sock_obj.comm_data.send_frame_status["X"] = scheduler_obj.forklift2.forklift_data.px.ToString();
-                            sock_obj.comm_data.send_frame_status["Y"] = scheduler_obj.forklift2.forklift_data.py.ToString();
-                            sock_obj.comm_data.send_frame_status["Yaw"] = scheduler_obj.forklift2.forklift_data.yaw.ToString();
-                            sock_obj.comm_data.send_frame_status["TaskID"] = scheduler_obj.forklift2.forklift_data.task_id.ToString();
-                        }
                     }
+                    else
+                    {
+                        sock_obj.comm_data.send_frame_status["AgvID"] = "03";
+                        sock_obj.comm_data.send_frame_status["State"] = scheduler_obj.forklift2.forklift_data.status.ToString();
+                        sock_obj.comm_data.send_frame_status["SensorStatus"] = scheduler_obj.forklift2.forklift_data.sensor.ToString();
+                        sock_obj.comm_data.send_frame_status["Fault"] = scheduler_obj.forklift2.forklift_data.errorcode.ToString();
+                        sock_obj.comm_data.send_frame_status["Power"] = scheduler_obj.forklift2.forklift_data.bat.ToString();
+                        sock_obj.comm_data.send_frame_status["X"] = scheduler_obj.forklift2.forklift_data.px.ToString();
+                        sock_obj.comm_data.send_frame_status["Y"] = scheduler_obj.forklift2.forklift_data.py.ToString();
+                        sock_obj.comm_data.send_frame_status["Yaw"] = scheduler_obj.forklift2.forklift_data.yaw.ToString();
+                        sock_obj.comm_data.send_frame_status["TaskID"] = scheduler_obj.forklift2.forklift_data.task_id.ToString();
+                    }
+                    
+                    sock_obj.comm_data.forklift_data_state = 3;
 
-                    if (is_ok) sock_obj.comm_data.forklift_data_state = 3;
-                    else sock_obj.comm_data.forklift_data_state = -1;
                 }
                 else if (sock_obj.comm_data.rece_frame["cmd_type"].ToString() == "aktiv_agv")
                 {
@@ -132,6 +135,19 @@ namespace forklift_rcs
                     else sock_obj.comm_data.forklift_data_state = -1;
                 }
             }
+            else //在没有收到来自上一层的指令发送要求时，自己发送询问叉车状态的报文。
+            {
+                double act_time = (double)(DateTime.Now.Millisecond) * 0.001; //当前时间
+                if (act_time - timestamp > 0.4)//当前时间与上次隔了0.4秒则询问一次叉车状态
+                {
+                    bool is_ok = scheduler_obj.getstatus_forklift(ask_forklift_id); //询问叉车状态
+                    timestamp = act_time;
+                    //叉车ID号切换
+                    if(ask_forklift_id == 2) ask_forklift_id = 3;
+                    else ask_forklift_id = 2;
+                }
+            }
+
         }
 
     }
